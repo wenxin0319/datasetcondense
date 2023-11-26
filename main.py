@@ -44,9 +44,9 @@ def get_images(images_all, labels_all, indices_class, c, n, clustering_method='r
         selected_indices = np.where(cluster_indices == selected_cluster_index)[0][:n]
 
         wandb.log({'selected_indices': selected_indices, "selected_indices_len": len(selected_indices), "class": c, "batch_size": n})
-        tensor_on_gpu = images_all[indices_class[c]]
-        numpy_array = tensor_on_gpu[selected_indices].numpy()
-        return torch.from_numpy(numpy_array)
+        tensor_on_cpu = images_all[indices_class[c]].cpu()
+        numpy_array = tensor_on_cpu[selected_indices].numpy()
+        return torch.from_numpy(numpy_array).to(images_all.device)
 
 def main():
     parser = argparse.ArgumentParser(description='Parameter Processing')
