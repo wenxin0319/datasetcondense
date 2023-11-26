@@ -1,0 +1,1 @@
+python main.py  --dataset CIFAR10  --model ConvNet --init real --clustering_method Agglomerative --ipc 10
